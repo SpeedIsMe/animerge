@@ -1,5 +1,5 @@
 **15/04 - Voorbereidingen**
-- [x] Maken/Goedkeuren van de Game design document
+- [x] Maken/Goedkeuren van de Game design document met mevrouw Bob Jacobs
 - [x] Installatie van Unity en Rider
 - [x] Opzetten van development omgeving
 - [x] Opzetten van GitHub repository
