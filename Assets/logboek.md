@@ -31,4 +31,15 @@
 - [x] UI toevoegen voor de game over state
 - [x] Toevoegen van een restart knop
 - [x] Toevoegen van een animatie voor de game over state
-
+- [x] Toevoegen van win conditie
+- [x] Toevoegen van een win UI
+- [x] Toevoegen van een animatie voor de win state
+- [x] Toevoegen van een restart knop voor de win state
+- [x] Gebruikers test gedaan
+- [x] Feedback verwerkt
+- [x] Nieuw dier toegevoegd
+- [x] Onlogische volgorde van dieren aangepast
+- [x] Logo toegevoegd
+- [x] slogan toegevoegd
+- [x] Naam van het spel toegevoegd
+- [x] Build gemaakt voor Windows

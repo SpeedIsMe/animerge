@@ -29,21 +29,18 @@ public class TileGrid : MonoBehaviour
     public TileCell Getcell(int x, int y)
     {
         if (x >= 0 && x < width && y >= 0 && y < height)
-        {
             return rows[y].cells[x];
-        } else
-        {
-            return null;
-        }
+        return null;
     }
-    
+
     public TileCell Getcell(Vector2Int position)
     {
         return Getcell(position.x, position.y);
     }
+
     public TileCell GetAdjacentCell(TileCell cell, Vector2Int direction)
     {
-        Vector2Int position = cell.postition;
+        var position = cell.postition;
         position.x += direction.x;
         position.y -= direction.y;
 
