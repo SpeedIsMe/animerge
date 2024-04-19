@@ -25,3 +25,7 @@
 - [x] Animaties toevoegen voor het bewegen van de tiles
 - [x] Player input stoppen tijdens animaties
 - [x] logica toevoegen voor het samenvoegen van tiles
+- [x] logica toegevoegd voor de game over state
+
+**19/04 - Realisatie**
+
