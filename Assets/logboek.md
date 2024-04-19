@@ -23,3 +23,4 @@
 
 **18/04 - Realisatie**
 - [x] Animaties toevoegen voor het bewegen van de tiles
+- [x] Player input stoppen tijdens animaties
