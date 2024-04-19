@@ -21,3 +21,5 @@
 - [x] Toevoegen van spawning logica voor de tiles
 - [x] Toevoegen van movement logica voor de tiles
 
+**18/04 - Realisatie**
+- [x] Animaties toevoegen voor het bewegen van de tiles
