@@ -28,4 +28,7 @@
 - [x] logica toegevoegd voor de game over state
 
 **19/04 - Realisatie**
+- [x] UI toevoegen voor de game over state
+- [x] Toevoegen van een restart knop
+- [x] Toevoegen van een animatie voor de game over state
 
