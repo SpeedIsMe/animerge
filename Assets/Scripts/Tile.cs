@@ -10,6 +10,7 @@ public class Tile : MonoBehaviour
     public TileState state { get; private set; }
     public TileCell cell { get; private set; }
     public string emoji { get; private set; }
+    public bool locked { get;  set; }
 
     public void Awake()
     {
@@ -44,10 +45,20 @@ public class Tile : MonoBehaviour
         this.cell = cell;
         this.cell.tile = this;
 
-        StartCoroutine(Animate(cell.transform.position));
+        StartCoroutine(Animate(cell.transform.position, false));
+    }
+    
+    public void Merge(TileCell cell)
+    {
+        if (this.cell != null) this.cell.tile = null;
+        
+        this.cell = null;
+        cell.tile.locked = true;
+
+        StartCoroutine(Animate(cell.transform.position, true));
     }
 
-    public IEnumerator Animate(Vector3 to)
+    public IEnumerator Animate(Vector3 to, bool merging)
     {
         float elapsedTime = 0f;
         float duration = 0.1f;
@@ -62,5 +73,10 @@ public class Tile : MonoBehaviour
         }
         
         transform.position = to;
+        
+        if (merging)
+        {
+            Destroy(gameObject);
+        }
     }
 }

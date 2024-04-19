@@ -86,7 +86,11 @@ public class TileBoard : MonoBehaviour
         {
             if (adjacentCell.hasTile)
             {
-                //TODO: merge tiles
+                if (CanMerge(tile, adjacentCell.tile))
+                {
+                    MergeTiles(tile, adjacentCell.tile);
+                    return true;
+                }
                 break;
             }
             
@@ -102,13 +106,95 @@ public class TileBoard : MonoBehaviour
         
         return false;
     }
+    
+    private bool CanMerge(Tile a, Tile b)
+    {
+        return a.emoji == b.emoji && !b.locked;
+    }
+
+    private void MergeTiles(Tile a, Tile b)
+    {
+        tiles.Remove(a);
+        a.Merge(b.cell);
+        
+        int index = Mathf.Clamp(IndexOf(b.state) + 1, 0, tileStates.Length - 1);
+        string emoji = DecideEmoji(b.emoji);
+        
+        b.SetState(tileStates[index], emoji);
+    }
+
+    private string DecideEmoji(string emoji)
+    {
+        string newEmoji = "";
+        
+        switch (emoji)
+        {
+            case "🐭":
+                newEmoji = "🐰";
+                break;
+            case "🐰":
+                newEmoji = "🐱";
+                break;
+            case "🐱":
+                newEmoji = "🦝";
+                break;
+            case "🦝":
+                newEmoji = "🐶";
+                break;
+            case "🐶":
+                newEmoji = "🦊";
+                break;
+            case "🦊":
+                newEmoji = "🐺";
+                break;
+            case "🐺":
+                newEmoji = "🐵";
+                break;
+            case "🐵":
+                newEmoji = "🐼";
+                break;
+            case "🐼":
+                newEmoji = "🐻";
+                break;
+            case "🐻":
+                newEmoji = "🐘";
+                break;
+            default:
+                newEmoji = emoji;
+                break;
+        }
+        return newEmoji;
+    }
+    
+    private int IndexOf(TileState state)
+    {
+        for (int i = 0; i < tileStates.Length; i++)
+        {
+            if (tileStates[i] == state)
+            {
+                return i;
+            }
+        }
+
+        return -1;
+    }
 
     private IEnumerator WaitForChanges()
     {
         isMoving = true;
         yield return new WaitForSeconds(0.1f);
         isMoving = false;
-        //TODO: create new tile
+
+        foreach (var tile in tiles)
+        {
+            tile.locked = false;
+        }
+
+        if (tiles.Count < grid.size)
+        {
+            CreateTile();
+        }
+        
         //TODO: check for game over
     }
 }
