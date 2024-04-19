@@ -17,3 +17,5 @@
 - [x] Toevoegen van script op de grid
 - [x] Toevoegen van script op de cells
 - [x] Toevoegen van script op de rows
+- [x] Toevoegen van script op de board
+- [x] Toevoegen van spawning logica voor de tiles
