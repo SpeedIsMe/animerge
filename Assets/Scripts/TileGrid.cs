@@ -26,6 +26,7 @@ public class TileGrid : MonoBehaviour
             rows[y].cells[x].postition = new Vector2Int(x, y);
     }
 
+    // helper function to get a cell at a specific position
     public TileCell Getcell(int x, int y)
     {
         if (x >= 0 && x < width && y >= 0 && y < height)
@@ -33,11 +34,13 @@ public class TileGrid : MonoBehaviour
         return null;
     }
 
+    // overload of the Getcell function to get a cell at a specific position using a Vector2Int
     public TileCell Getcell(Vector2Int position)
     {
         return Getcell(position.x, position.y);
     }
 
+    // helper function to get the adjacent cell in a specific direction
     public TileCell GetAdjacentCell(TileCell cell, Vector2Int direction)
     {
         var position = cell.postition;
@@ -47,6 +50,7 @@ public class TileGrid : MonoBehaviour
         return Getcell(position);
     }
 
+    // logic to get a random empty cell in the grid
     public TileCell GetRandomEmptyCell()
     {
         var index = Random.Range(0, size);

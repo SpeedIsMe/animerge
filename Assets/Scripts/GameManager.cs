@@ -7,11 +7,13 @@ public class GameManager : MonoBehaviour
     public CanvasGroup gameOver;
     public CanvasGroup winner;
 
+    
     private void Start()
     {
         NewGame();
     }
     
+    // this function is called when the player wants to start a new game
     public void NewGame()
     {
         gameOver.alpha = 0f;
@@ -26,6 +28,7 @@ public class GameManager : MonoBehaviour
         board.enabled = true;
     }
 
+    // this function is called when the player loses the game and handles the game over UI
     public void GameOver()
     {
         board.enabled = false;
@@ -34,6 +37,7 @@ public class GameManager : MonoBehaviour
         StartCoroutine(Fade(gameOver, 0f, 1f, 1f));
     }
 
+    // this function is called when the player wins the game due to UI layers I disable the game over layer
     public void Winner()
     {
         board.enabled = false;
@@ -43,6 +47,7 @@ public class GameManager : MonoBehaviour
         StartCoroutine(Fade(winner, 0f, 1f, 1f));
     }
 
+    // this function is used to fade in the canvas groups
     private IEnumerator Fade(CanvasGroup canvasGroup, float start, float end, float duration)
     {
         var time = 0f;

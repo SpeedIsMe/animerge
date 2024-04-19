@@ -14,12 +14,14 @@ public class TileBoard : MonoBehaviour
 
     private void Awake()
     {
+        // get the TileGrid component from the children of the TileBoard object
         grid = GetComponentInChildren<TileGrid>();
         tiles = new List<Tile>(16);
     }
 
     private void Update()
     {
+        // this block of code checks for the player input and moves the tiles accordingly
         if (!isMoving)
         {
             if (Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.UpArrow))
@@ -33,6 +35,7 @@ public class TileBoard : MonoBehaviour
         }
     }
 
+    // this function is called to clear the board
     public void ClearBoard()
     {
         foreach (var cell in grid.cells) cell.tile = null;
@@ -42,6 +45,7 @@ public class TileBoard : MonoBehaviour
         tiles.Clear();
     }
 
+    // this function is called to create a new tile
     public void CreateTile()
     {
         var tile = Instantiate(tilePrefab, grid.transform);
@@ -50,6 +54,7 @@ public class TileBoard : MonoBehaviour
         tiles.Add(tile);
     }
 
+    // this function is called to move all tiles in a direction and pace of the game
     private void MoveTiles(Vector2Int direction, int startX, int incrementX, int startY, int incrementY)
     {
         var changed = false;
@@ -63,12 +68,13 @@ public class TileBoard : MonoBehaviour
 
         if (changed) StartCoroutine(WaitForChanges());
     }
-
+    
+    // this function is handles the movement of an individual tile and logic for merging tiles
     private bool MoveTile(Tile tile, Vector2Int direction)
     {
         TileCell newCell = null;
         var adjacentCell = grid.GetAdjacentCell(tile.cell, direction);
-
+        
         while (adjacentCell != null)
         {
             if (adjacentCell.hasTile)
@@ -95,11 +101,13 @@ public class TileBoard : MonoBehaviour
         return false;
     }
 
+    // this function is called to check if two tiles can be merged
     private bool CanMerge(Tile a, Tile b)
     {
         return a.emoji == b.emoji && !b.locked;
     }
 
+    // this function is called to merge two tiles
     private void MergeTiles(Tile a, Tile b)
     {
         tiles.Remove(a);
@@ -111,6 +119,7 @@ public class TileBoard : MonoBehaviour
         b.SetState(tileStates[index], emoji);
     }
 
+    // this function is called to decide the emoji of the new tile
     private string DecideEmoji(string emoji)
     {
         var newEmoji = "";
@@ -155,6 +164,7 @@ public class TileBoard : MonoBehaviour
         return newEmoji;
     }
 
+    // this function is called to get the index of a tile state
     private int IndexOf(TileState state)
     {
         for (var i = 0; i < tileStates.Length; i++)
@@ -164,6 +174,7 @@ public class TileBoard : MonoBehaviour
         return -1;
     }
 
+    // this function is called to wait for the tiles to finish moving and check for game over or win
     private IEnumerator WaitForChanges()
     {
         isMoving = true;
@@ -179,6 +190,7 @@ public class TileBoard : MonoBehaviour
         if (CheckForWin()) gameManager.Winner();
     }
 
+    // this function handles the logic for checking if the player has won the game
     private bool CheckForWin()
     {
         foreach (var tile in tiles)
@@ -188,6 +200,7 @@ public class TileBoard : MonoBehaviour
         return false;
     }
 
+    // this function handles the logic for checking if the player has lost the game
     private bool CheckForGameOver()
     {
         if (tiles.Count != grid.size) return false;
