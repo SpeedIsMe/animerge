@@ -19,3 +19,5 @@
 - [x] Toevoegen van script op de rows
 - [x] Toevoegen van script op de board
 - [x] Toevoegen van spawning logica voor de tiles
+- [x] Toevoegen van movement logica voor de tiles
+

@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -27,5 +28,69 @@ public class TileBoard : MonoBehaviour
         tile.SetState(tileStates[0], @"🐭");
         tile.Spawn(grid.GetRandomEmptyCell());
         tiles.Add(tile);
+    }
+
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.UpArrow))
+        {
+            MoveTiles(Vector2Int.up, 0, 1, 1, 1);
+        }
+        else if (Input.GetKeyDown(KeyCode.S) || Input.GetKeyDown(KeyCode.DownArrow))
+        {
+            MoveTiles(Vector2Int.down, 0, 1, grid.height - 2, -1);
+        }
+        else if (Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.LeftArrow))
+        {
+            MoveTiles(Vector2Int.left, 1, 1, 0, 1);
+        }
+        else if (Input.GetKeyDown(KeyCode.D) || Input.GetKeyDown(KeyCode.RightArrow))
+        {
+            MoveTiles(Vector2Int.right, grid.width - 2, -1, 0, 1);
+        }
+    }
+    
+    private void MoveTiles(Vector2Int direction, int startX, int incrementX, int startY, int incrementY)
+    {
+        for(int x = startX; x >= 0 && x < grid.width; x += incrementX)
+        {
+            for(int y = startY; y >= 0 && y < grid.height; y += incrementY)
+            {
+                var cell = grid.Getcell(x, y);
+
+                if (cell.hasTile)
+                {
+                    MoveTile(cell.tile, direction);
+                } 
+                
+                
+                
+                
+
+            }
+        }
+    }
+
+    private void MoveTile(Tile tile, Vector2Int direction)
+    {
+        TileCell newCell = null;
+        TileCell adjacentCell = grid.GetAdjacentCell(tile.cell, direction);
+        
+        while (adjacentCell != null)
+        {
+            if (adjacentCell.hasTile)
+            {
+                //TODO: merge tiles
+                break;
+            }
+            
+            newCell = adjacentCell;
+            adjacentCell = grid.GetAdjacentCell(adjacentCell, direction);
+        }
+        
+        if (newCell != null)
+        {
+            tile.MoveTo(newCell);
+        }
     }
 }
